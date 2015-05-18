@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>addToMenu</key>
+	<array>
+		<dict>
+			<key>path</key>
+			<string>gold2image.py</string>
+			<key>preferredName</key>
+			<string>gold2image</string>
+			<key>shortKey</key>
+			<string></string>
+		</dict>
+	</array>
+	<key>developer</key>
+	<string>TypeMyType</string>
+	<key>developerURL</key>
+	<string>http://typemytype.com</string>
+	<key>html</key>
+	<false/>
+	<key>launchAtStartUp</key>
+	<integer>1</integer>
+	<key>mainScript</key>
+	<string>goldener.py</string>
+	<key>name</key>
+	<string>Goldener</string>
+	<key>requiresVersionMajor</key>
+	<string>1</string>
+	<key>requiresVersionMinor</key>
+	<string>6</string>
+	<key>timeStamp</key>
+	<real>1425936103.5658131</real>
+	<key>version</key>
+	<string>1.0</string>
+	<key>com.robofontmechanic.Mechanic</key>
+	<dict>
+		<key>repository</key>
+		<string>typemytype/goldnerRoboFontExtension</string>
+	</dict>
+</dict>
+</plist>
