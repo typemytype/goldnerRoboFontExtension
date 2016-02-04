@@ -2,6 +2,7 @@ from AppKit import NSImage
 import drawBot
 
 from lib.fontObjects.doodleComponent import DecomposePointPen
+from lib.UI.dialogs import dontShowAgainMessage
 
 from outlinePen import OutlinePen
 
@@ -69,6 +70,9 @@ addRepresentationFactory("money.money.money", GoldFactory)
 class GoldMaker(object):
 
     def __init__(self):
+        text = "Every thing you space will be gold!"
+        message = "To disable this Goldener extension, simply uninstall it from the preferences and restart."
+        dontShowAgainMessage(text, message, dontShowAgainKey="Goldener.warning")
         addObserver(self, "goldie", "drawPreview")
         addObserver(self, "goldie", "spaceCenterDraw")
 
