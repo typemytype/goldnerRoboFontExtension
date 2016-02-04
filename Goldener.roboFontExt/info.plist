@@ -37,6 +37,8 @@
 	<dict>
 		<key>repository</key>
 		<string>typemytype/goldnerRoboFontExtension</string>
+		<key>summary</key>
+		<string>Gold fever, everything you space will be gold! Deinstall to remove the gold.</string>
 	</dict>
 </dict>
 </plist>
