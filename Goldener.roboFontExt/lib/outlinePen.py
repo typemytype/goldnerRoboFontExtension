@@ -64,7 +64,7 @@ def pointOnACurve((x1, y1), (cx1, cy1), (cx2, cy2), (x2, y2), value):
     mx = ax*(value)**3 + bx*(value)**2 + cx*(value) + dx
     my = ay*(value)**3 + by*(value)**2 + cy*(value) + dy
     return MathPoint(mx, my)
-    
+
 class MathPoint(object):
 
     def __init__(self, x, y=None):
@@ -175,7 +175,7 @@ class CleanPointPen(AbstractPointPen):
             pointPen.addPoint(data["point"], **data)
         pointPen.endPath()
 
-    def beginPath(self):
+    def beginPath(self, identifier=None):
         assert self.currentContour is None
         self.currentContour = []
         self.onCurve = []
@@ -190,7 +190,7 @@ class CleanPointPen(AbstractPointPen):
         data.update(kwargs)
         self.currentContour.append(data)
 
-    def addComponent(self, glyphName, transform):
+    def addComponent(self, glyphName, transform, identifier=None):
         assert self.currentContour is None
         self.pointPen.addComponent(glyphName, transform)
 

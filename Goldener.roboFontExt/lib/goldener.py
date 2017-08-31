@@ -19,7 +19,7 @@ def setGoldGradient(minx, miny, maxx, maxy, levels=3):
     drawBot.linearGradient((minx, maxy), (maxx, miny), colors)
 
 
-def GoldFactory(glyph, font, offset=10):
+def GoldFactory(glyph, font=None, offset=10):
     glyph = RGlyph(glyph)
     box = glyph.box
     if box is None:
@@ -33,6 +33,8 @@ def GoldFactory(glyph, font, offset=10):
     drawBot.newPage(w, h)
     drawBot.translate(-minx + margin, -miny + margin)
 
+    if font is None:
+        font = glyph.getParent()
     glyphSet = font
 
     g = glyph.copy()
