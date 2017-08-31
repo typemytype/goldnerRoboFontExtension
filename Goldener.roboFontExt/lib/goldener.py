@@ -1,13 +1,18 @@
 from AppKit import NSImage
 import drawBot
 
-from lib.fontObjects.doodleComponent import DecomposePointPen
 from lib.UI.dialogs import dontShowAgainMessage
 
 from outlinePen import OutlinePen
 
 from mojo.events import addObserver
 from mojo.drawingTools import image
+try:
+    from mojo.pens import DecomposePointPen
+except Exception:
+    from lib.fontObjects.doodleComponent import DecomposePointPen
+
+
 
 from defcon.objects.glyph import addRepresentationFactory
 
