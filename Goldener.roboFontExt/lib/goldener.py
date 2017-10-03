@@ -1,17 +1,23 @@
 from AppKit import NSImage
 import drawBot
 
-from lib.UI.dialogs import dontShowAgainMessage
+
 
 from outlinePen import OutlinePen
 
 from mojo.events import addObserver
 from mojo.drawingTools import image
-try:
-    from mojo.pens import DecomposePointPen
-except Exception:
-    from lib.fontObjects.doodleComponent import DecomposePointPen
 
+import mojo.roboFont
+
+if mojo.roboFont.version >= 2:
+    # in RF2
+    from mojo.pens import DecomposePointPen
+    from mojo.UI.dialogs import dontShowAgainMessage
+else:
+    # in RF1+
+    from lib.fontObjects.doodleComponent import DecomposePointPen
+    from lib.UI.dialogs import dontShowAgainMessage
 
 
 from defcon.objects.glyph import addRepresentationFactory
