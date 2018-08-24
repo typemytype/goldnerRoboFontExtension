@@ -1,9 +1,14 @@
 from AppKit import *
 
 from fontTools.pens.basePen import BasePen
-from robofab.pens.pointPen import AbstractPointPen
-from robofab.pens.reverseContourPointPen import ReverseContourPointPen
-from robofab.pens.adapterPens import PointToSegmentPen
+try:
+    from ufoLib.pointPen import AbstractPointPen
+    from ufoLib.pointPen import ReverseContourPointPen
+    from ufoLib.pointPen import PointToSegmentPen
+except:
+    from robofab.pens.pointPen import AbstractPointPen
+    from robofab.pens.reverseContourPointPen import ReverseContourPointPen
+    from robofab.pens.adapterPens import PointToSegmentPen
 
 from defcon import Glyph
 from math import sqrt, cos, sin, acos, asin, degrees, radians, tan, pi
@@ -39,7 +44,8 @@ def checkInnerOuter(firstAngle, lastAngle):
     if dirAngle <= 0:
         return False
 
-def interSect((seg1s, seg1e), (seg2s, seg2e)):
+def interSect(start, end):
+    (seg1s, seg1e), (seg2s, seg2e) = start, end
     denom = (seg2e.y - seg2s.y)*(seg1e.x - seg1s.x) - (seg2e.x - seg2s.x)*(seg1e.y - seg1s.y)
     if roundFloat(denom) == 0:
         #print 'parallel: %s' % denom
@@ -52,7 +58,8 @@ def interSect((seg1s, seg1e), (seg2s, seg2e)):
     y = seg1s.y + ua*(seg1e.y - seg1s.y)
     return MathPoint(x, y)
 
-def pointOnACurve((x1, y1), (cx1, cy1), (cx2, cy2), (x2, y2), value):
+def pointOnACurve(pt1, pt2, pt3, pt4, value):
+    (x1, y1), (cx1, cy1), (cx2, cy2), (x2, y2) = pt1, pt2, pt3, pt4
     dx = x1
     cx = (cx1 - dx) * 3.0
     bx = (cx2 - cx1) * 3.0 - cx
@@ -140,6 +147,7 @@ class MathPoint(object):
             cosAngle = 360 - cosAngle
         return radians(cosAngle + add)
 
+
 class CleanPointPen(AbstractPointPen):
 
     def __init__(self, pointPen):
@@ -194,6 +202,7 @@ class CleanPointPen(AbstractPointPen):
         assert self.currentContour is None
         self.pointPen.addComponent(glyphName, transform)
 
+
 class OutlinePen(BasePen):
 
     pointClass = MathPoint
@@ -242,7 +251,8 @@ class OutlinePen(BasePen):
 
         self.drawSettings()
 
-    def _moveTo(self, (x, y)):
+    def _moveTo(self, xy):
+        (x, y) = xy
         if self.offset == 0:
             self.outerPen.moveTo((x, y))
             self.innerPen.moveTo((x, y))
@@ -254,7 +264,8 @@ class OutlinePen(BasePen):
         self.firstPoint = p
         self.shouldHandleMove = True
 
-    def _lineTo(self, (x, y)):
+    def _lineTo(self, xy):
+        (x, y) = xy
         if self.offset == 0:
             self.outerPen.lineTo((x, y))
             self.innerPen.lineTo((x, y))
@@ -294,7 +305,8 @@ class OutlinePen(BasePen):
         self.prevPoint = currentPoint
         self.prevAngle = self.currentAngle
 
-    def _curveToOne(self, (x1, y1), (x2, y2), (x3, y3)):
+    def _curveToOne(self, xy1, xy2, xy3):
+        (x1, y1), (x2, y2), (x3, y3) = xy1, xy2, xy3
         if self.offset == 0:
             self.outerPen.curveTo((x1, y1), (x2, y2), (x3, y3))
             self.innerPen.curveTo((x1, y1), (x2, y2), (x3, y3))

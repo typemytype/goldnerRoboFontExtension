@@ -2,7 +2,6 @@ from AppKit import NSImage
 import drawBot
 
 
-
 from outlinePen import OutlinePen
 
 from mojo.events import addObserver
@@ -10,10 +9,10 @@ from mojo.drawingTools import image
 
 import mojo.roboFont
 
-if mojo.roboFont.version >= 2:
-    # in RF2
+if mojo.roboFont.version >= "3.0":
+    # in RF3
     from mojo.pens import DecomposePointPen
-    from mojo.UI.dialogs import dontShowAgainMessage
+    from mojo.UI import dontShowAgainMessage
 else:
     # in RF1+
     from lib.fontObjects.doodleComponent import DecomposePointPen
