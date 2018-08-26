@@ -44,7 +44,10 @@ def GoldFactory(glyph, font=None, offset=10):
     drawBot.translate(-minx + margin, -miny + margin)
 
     if font is None:
-        font = glyph.getParent()
+        if mojo.roboFont.version >= "3.0":
+            font = glyph.font
+        else:
+            font = glyph.getParent()
     glyphSet = font
 
     g = glyph.copy()

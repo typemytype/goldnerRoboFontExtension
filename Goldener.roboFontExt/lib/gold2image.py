@@ -16,4 +16,4 @@ if result:
 
     imageData.writeToFile_atomically_(imagePath, True)
 
-    g.addImage(imagePath, offset)
+    g.addImage(path=imagePath, position=offset)
