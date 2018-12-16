@@ -26,19 +26,12 @@
 	<key>name</key>
 	<string>Goldener</string>
 	<key>requiresVersionMajor</key>
-	<string>1</string>
+	<string>3</string>
 	<key>requiresVersionMinor</key>
-	<string>6</string>
+	<string>1</string>
 	<key>timeStamp</key>
 	<real>1425936103.5658131</real>
 	<key>version</key>
-	<string>1.0</string>
-	<key>com.robofontmechanic.Mechanic</key>
-	<dict>
-		<key>repository</key>
-		<string>typemytype/goldnerRoboFontExtension</string>
-		<key>summary</key>
-		<string>Gold fever, everything you space will be gold! Deinstall to remove the gold.</string>
-	</dict>
+	<string>1.1</string>
 </dict>
 </plist>
