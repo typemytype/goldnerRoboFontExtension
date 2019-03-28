@@ -1,11 +1,22 @@
 from AppKit import NSImage
 import drawBot
+
 from outlinePen import OutlinePen
+
 from mojo.events import addObserver
 from mojo.drawingTools import image
-from mojo.pens import DecomposePointPen
-from mojo.UI import dontShowAgainMessage
-from defcon import Glyph, registerRepresentationFactory
+from mojo.roboFont import version
+
+if version >= "3.0":
+    # in RF3
+    from mojo.pens import DecomposePointPen
+    from mojo.UI import dontShowAgainMessage
+    from defcon import Glyph, registerRepresentationFactory
+else:
+    # in RF1+
+    from lib.fontObjects.doodleComponent import DecomposePointPen
+    from lib.UI.dialogs import dontShowAgainMessage
+    from defcon.objects.glyph import addRepresentationFactory
 
 
 def setGoldGradient(minx, miny, maxx, maxy, levels=3):
@@ -17,11 +28,9 @@ def setGoldGradient(minx, miny, maxx, maxy, levels=3):
 
 def GoldFactory(glyph, font=None, offset=10):
     glyph = RGlyph(glyph)
-    box = glyph.bounds
-
+    box = glyph.bounds if version >= "3.0" else glyph.box
     if box is None:
         return None
-
     margin = offset * 2
     minx, miny, maxx, maxy = box
     w = maxx - minx + margin * 2
@@ -32,19 +41,23 @@ def GoldFactory(glyph, font=None, offset=10):
     drawBot.translate(-minx + margin, -miny + margin)
 
     if font is None:
-        font = glyph.font
+        font = glyph.font if version >= "3.0" else glyph.getParent()
+
     glyphSet = font
 
     g = glyph.copy()
 
     for component in reversed(g.components):
-        decomposePen = DecomposePointPen(glyphSet, g.getPointPen())
+        if version >= "3.0":
+            decomposePen = DecomposePointPen(glyphSet, g.getPointPen())
+        else:
+            decomposePen = DecomposePointPen(glyphSet, g.getPointPen(), [1, 0, 0, 1, 0, 0])
         component.drawPoints(decomposePen)
         g.removeComponent(component)
 
     g.removeOverlap()
 
-    minx, miny, maxx, maxy = g.bounds
+    minx, miny, maxx, maxy = g.bounds if version >= "3.0" else g.box
 
     setGoldGradient(minx, miny, maxx, maxy)
     drawBot.drawGlyph(g)
@@ -64,7 +77,12 @@ def GoldFactory(glyph, font=None, offset=10):
     image = NSImage.alloc().initWithData_(page.dataRepresentation())
     return image, (minx-margin, miny-margin)
 
-registerRepresentationFactory(Glyph, "money.money.money", GoldFactory)
+
+if version >= "3.0":
+    registerRepresentationFactory(Glyph, "money.money.money", GoldFactory)
+else:
+    addRepresentationFactory("money.money.money", GoldFactory)
+
 
 class GoldMaker(object):
 
