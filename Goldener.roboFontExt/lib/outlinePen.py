@@ -2,9 +2,9 @@ from AppKit import *
 
 from fontTools.pens.basePen import BasePen
 try:
-    from ufoLib.pointPen import AbstractPointPen
-    from ufoLib.pointPen import ReverseContourPointPen
-    from ufoLib.pointPen import PointToSegmentPen
+    from fontTools.pens.pointPen import AbstractPointPen
+    from fontTools.pens.pointPen import ReverseContourPointPen
+    from fontTools.pens.pointPen import PointToSegmentPen
 except:
     from robofab.pens.pointPen import AbstractPointPen
     from robofab.pens.reverseContourPointPen import ReverseContourPointPen
