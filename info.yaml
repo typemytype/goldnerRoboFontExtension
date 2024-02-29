@@ -1,0 +1,14 @@
+name: Goldener
+developer: TypeMyType
+developerURL: http://typemytype.com
+launchAtStartUp: true
+mainScript: goldener.py
+version: '1.1'
+addToMenu:
+- path: gold2image.py
+  preferredName: gold2image
+  shortKey: ''
+html: false
+timeStamp: 1425936103.565813
+requiresVersionMajor: '1'
+requiresVersionMinor: '6'
